@@ -1,1 +1,34 @@
 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+	    
+
+		<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+
+		<script type="text/javascript">
+		
+
+		var pubnub = PUBNUB({
+			publish_key: 'demo',
+    		subscribe_key: 'demo'
+		});
+
+		function pub(){
+			pubnub.publish({
+				channel: 'my_channel',
+				message: 'Data'
+			});
+			console.log("published");
+		}
+
+	    </script>
+	</head>
+
+	<body>
+		<button type="button" onclick=pub();>Publish</button>
+	</body>
+
+</html>

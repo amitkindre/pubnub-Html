@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+	    
+
+		<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+
+		<script type="text/javascript">
+		
+		var pubnub = PUBNUB({
+			publish_key: 	'',
+    		subscribe_key: 	''
+		});
+
+		pubnub.subscribe({
+			channel: 'test_ch',
+			connect: function(){
+				console.log("connected")
+			},
+
+			disconnect : function() {
+				alert("Connection Lost!")
+			}, 
+
+			reconnect : function(){
+				console.log("We are Back")
+			},
+
+			callback : function(m){
+				console.log("Published",m)
+			}
+		});
+
+		function pub(key,value){
+			pubnub.publish({
+				channel: 'test_ch',
+				message: {key:value}
+			},function(status, response){	// call back function  as 2nd parameter
+				console.log(status, response)
+			});
+			console.log("publising...",value);	//
+		}
+
+		var ledState = 1;
+		function LedToggle(){
+			ledState = !ledState;
+			pub("Led",ledState);
+		}
+
+	    </script>
+	</head>
+
+	<body>
+		<button type="button" onclick=LedToggle();>LedOn</button>
+	</body>
+
+</html>
